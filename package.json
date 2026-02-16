@@ -1,0 +1,29 @@
+{
+  "name": "habitflow",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:server": "npm --prefix server run dev",
+    "dev:all": "concurrently -n FRONT,BACK -c green,blue \"npm run dev\" \"npm run dev:server\"",
+    "dev:clean": "fuser -k 5000/tcp || true && fuser -k 3000/tcp || true && fuser -k 3001/tcp || true && fuser -k 3002/tcp || true",
+    "start:clean": "npm run dev:clean && npm run dev:all",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^1.38.0",
+    "lucide-react": "^0.563.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "recharts": "^3.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.2.1",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
