@@ -1,8 +1,15 @@
-export type ViewState = 'LANDING' | 'LOGIN' | 'REGISTER' | 'SUBSCRIPTION_SETUP' | 'ONBOARDING' | 'HOME' | 'HISTORY' | 'STATS' | 'PROFILE' | 'RANKING' | 'ADVISOR';
+export type ViewState = 'LANDING' | 'LOGIN' | 'REGISTER' | 'SUBSCRIPTION_SETUP' | 'ONBOARDING' | 'HOME' | 'HISTORY' | 'STATS' | 'PROFILE' | 'RANKING' | 'ADVISOR' | 'DISCOVER' | 'MOOD';
 
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'extreme';
 export type FrequencyType = 'daily' | 'weekly';
 export type Language = 'es' | 'en';
+export type MoodType = 'Muy triste' | 'Triste' | 'Neutral' | 'Feliz' | 'Alegre' | 'Excelente';
+
+export interface MoodEntry {
+  date: string; // ISO string
+  mood: MoodType;
+  note: string;
+}
 
 export interface Habit {
   id: string;
@@ -36,11 +43,7 @@ export interface User {
   weeklyXp?: number;
   maxStreakRecord?: number;
   hardestHabitCompleted?: Difficulty;
-  onboardingAnswers?: {
-    goal: string;
-    energy: string;
-    intensity: string;
-  };
+  moodLogs?: MoodEntry[];
 }
 
 export const HABIT_ICONS = [

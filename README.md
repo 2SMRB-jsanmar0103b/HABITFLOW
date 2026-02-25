@@ -1,51 +1,20 @@
-# HabitFlow
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-HabitFlow es una aplicación web orientada a la creación y consolidación de hábitos, diseñada para ayudar a los usuarios a mejorar su productividad, bienestar y constancia mediante un seguimiento claro y estructurado de sus rutinas.
+# Run and deploy your AI Studio app
 
-La aplicación ofrece una experiencia sencilla e intuitiva, centrada en facilitar la adopción de hábitos sostenibles a largo plazo.
+This contains everything you need to run your app locally.
 
-## Acceso a la aplicación
+View your app in AI Studio: https://ai.studio/apps/5fa167ed-a8ec-40d1-899a-ddd14b78a535
 
-La aplicación está disponible en el siguiente enlace:
+## Run Locally
 
-https://habitflow.sytes.net/
+**Prerequisites:**  Node.js
 
-## Funcionalidades principales
 
-- Creación y gestión de hábitos personalizados  
-- Seguimiento del progreso diario  
-- Interfaz clara y orientada a la usabilidad  
-- Enfoque en constancia, organización y mejora personal  
-
-## Tecnologías
-
-- Frontend: HTML, CSS, JavaScript  
-- Backend: En desarrollo  
-- Servidor web: Nginx  
-- Infraestructura: VPS  
-- Certificados SSL: Let’s Encrypt  
-
-## Equipo
-
-### Manuel Jiménez  
-CTO · Scrum Master · Developer  
-
-Responsable del diseño técnico, la arquitectura del sistema, la implementación del software y la gestión del desarrollo ágil del proyecto.
-
-### José Santiago  
-CEO · CMO · Developer  
-
-Encargado de la visión del producto, la estrategia de negocio y marketing, así como del desarrollo de funcionalidades clave.
-
-## Estado del proyecto
-
-HabitFlow se encuentra en fase de desarrollo activo, con nuevas funcionalidades y mejoras planificadas.
-
-## Contribuciones
-
-Las contribuciones externas, sugerencias y propuestas de mejora son bienvenidas.  
-Para colaborar, se recomienda contactar previamente con el equipo del proyecto.
-
-## Licencia
-
-La licencia del proyecto está pendiente de definición.
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

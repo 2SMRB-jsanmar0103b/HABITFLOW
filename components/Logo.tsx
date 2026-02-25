@@ -33,7 +33,7 @@ export const Logo: React.FC<LogoProps> = ({ className = "w-40 h-40", showText = 
       
       {showText && (
         <div className="mt-1 text-center animate-in fade-in slide-in-from-top-6 duration-1000">
-          <h1 className="text-6xl md:text-7xl font-brand font-black text-white uppercase tracking-tight leading-none group-hover:text-brand-lime transition-colors">
+          <h1 className="text-6xl md:text-7xl font-brand font-black text-black dark:text-white uppercase tracking-tight leading-none group-hover:text-brand-lime transition-colors">
             HabitFlow
           </h1>
           <p className="text-[12px] md:text-[14px] text-brand-lime font-sans font-bold uppercase tracking-[0.5em] mt-2 opacity-90">

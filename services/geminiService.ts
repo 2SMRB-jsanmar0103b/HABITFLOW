@@ -49,6 +49,35 @@ export const generateSuggestedHabits = async (answers: any, language: string = '
   }
 };
 
+export const discoverAIHabits = async (category: string, language: string = 'es') => {
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents: `Generate 3 high-impact habits for category: "${category}". 
+      Explain why each matters. Language: ${language === 'es' ? 'Spanish' : 'English'}.`,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              title: { type: Type.STRING },
+              description: { type: Type.STRING },
+              difficulty: { type: Type.STRING, enum: ['easy', 'medium', 'hard', 'extreme'] },
+              xp: { type: Type.INTEGER }
+            },
+            required: ['title', 'description', 'difficulty', 'xp']
+          }
+        }
+      }
+    });
+    return JSON.parse(response.text || '[]');
+  } catch (error) {
+    return [];
+  }
+};
+
 export const analyzeHabitDifficulty = async (habitTitle: string, habitDesc: string, language: string = 'es') => {
   try {
     const response = await ai.models.generateContent({
