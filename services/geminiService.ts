@@ -1,9 +1,19 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI("AIzaSyArYZDOFLskxUqA3pEbICuVLWkcMGeTamQ");
+const getAI = () => {
+  const key = process.env.API_KEY || process.env.GEMINI_API_KEY;
+  if (!key) {
+    console.warn("GEMINI_API_KEY is missing. AI features will be disabled.");
+    return null;
+  }
+  return new GoogleGenAI({ apiKey: key });
+};
+
+const ai = getAI();
 
 export const getAIAdvice = async (message: string, history: {role: string, parts: {text: string}[]}[], language: string = 'es') => {
   try {
+    if (!ai) throw new Error("AI not initialized");
     const chat = ai.chats.create({
       model: "gemini-3-flash-preview",
       config: {
@@ -22,6 +32,7 @@ export const getAIAdvice = async (message: string, history: {role: string, parts
 
 export const generateSuggestedHabits = async (answers: any, language: string = 'es') => {
   try {
+    if (!ai) throw new Error("AI not initialized");
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Based on the user's goals: ${JSON.stringify(answers)}, suggest 3 personalized habits.
@@ -51,6 +62,7 @@ export const generateSuggestedHabits = async (answers: any, language: string = '
 
 export const discoverAIHabits = async (category: string, language: string = 'es') => {
   try {
+    if (!ai) throw new Error("AI not initialized");
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Generate 3 high-impact habits for category: "${category}". 
@@ -80,6 +92,7 @@ export const discoverAIHabits = async (category: string, language: string = 'es'
 
 export const analyzeHabitDifficulty = async (habitTitle: string, habitDesc: string, language: string = 'es') => {
   try {
+    if (!ai) throw new Error("AI not initialized");
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Analyze habit: "${habitTitle}" - "${habitDesc}". JSON format please.`,
@@ -104,6 +117,7 @@ export const analyzeHabitDifficulty = async (habitTitle: string, habitDesc: stri
 
 export const getMotivationalQuote = async (userName: string, completedCount: number, language: string = 'es') => {
    try {
+     if (!ai) throw new Error("AI not initialized");
      const response = await ai.models.generateContent({
        model: "gemini-3-flash-preview",
        contents: `Short quote for ${userName} (${completedCount} habits today). Language: ${language}.`,

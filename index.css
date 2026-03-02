@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Oswald", sans-serif;
+  --font-brand: "Big Shoulders Display", cursive;
+
+  --color-brand-black: #000000;
+  --color-brand-gray: #0a0a0a;
+  --color-brand-darker: #050505;
+  --color-brand-lime: #D3FF99;
+  --color-brand-lime-dark: #b0d978;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-black text-white selection:bg-brand-lime selection:text-black;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D3FF99;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
