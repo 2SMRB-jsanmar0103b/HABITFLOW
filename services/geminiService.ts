@@ -1,6 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 export const getAIAdvice = async (message: string, history: {role: string, parts: {text: string}[]}[], language: string = 'es') => {
   try {
