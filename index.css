@@ -12,34 +12,38 @@
   --color-brand-lime-dark: #b0d978;
 }
 
-@layer base {
-  body {
-    @apply bg-brand-black text-white selection:bg-brand-lime selection:text-black;
-    overflow-x: hidden;
-  }
+/* Base Styles using standard CSS to avoid build issues */
+body {
+  background-color: var(--color-brand-black);
+  color: white;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
 }
 
-@layer components {
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #000000;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #1a1a1a;
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #D3FF99;
-  }
+::selection {
+  background-color: var(--color-brand-lime);
+  color: black;
+}
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-lime);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

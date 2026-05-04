@@ -532,13 +532,61 @@ const App: React.FC = () => {
     } else { setErrorMsg(curT.errWrongPass); }
   };
 
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault(); if (regPass.length < 6) { setErrorMsg(curT.errPassShort); return; }
-    if (storageService.findUser(regEmail) || storageService.findUser(regUser)) { setErrorMsg(curT.errUserTaken); return; }
-    const newUser: User = { name: regName, username: regUser, email: regEmail, password: regPass, level: 1, currentXp: 0, nextLevelXp: 1000, totalXp: 0, darkMode: true, language: 'es', subscriptionPlan: 'free', onboardingCompleted: false, moodLogs: [] };
-    storageService.saveUser(newUser); setUser(newUser); setHabits([]); 
-    setEditName(newUser.name); setEditUsername(newUser.username);
-    setView('SUBSCRIPTION_SETUP'); setErrorMsg(null);
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault(); 
+    if (regPass.length < 6) { setErrorMsg(curT.errPassShort); return; }
+    
+    setErrorMsg(null);
+    try {
+      const response = await fetch('http://184.72.101.32:5000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombre: regName,
+          email: regEmail,
+          password: regPass,
+          username: regUser
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || curT.errUserTaken);
+      }
+
+      const userData = await response.json();
+      
+      // Save to localStorage as requested for persistence
+      localStorage.setItem('usuario', JSON.stringify(userData));
+      
+      // Ensure the user object has all required fields for the frontend
+      const newUser: User = { 
+        ...userData,
+        // Map backend 'nombre' if returned as 'name' or keep current structure
+        name: userData.nombre || userData.name || regName,
+        username: userData.username || regUser,
+        email: userData.email || regEmail,
+        level: userData.level || 1, 
+        currentXp: userData.currentXp || 0, 
+        nextLevelXp: userData.nextLevelXp || 1000, 
+        totalXp: userData.totalXp || 0, 
+        darkMode: userData.darkMode ?? true, 
+        language: userData.language || 'es', 
+        subscriptionPlan: userData.subscriptionPlan || 'free', 
+        onboardingCompleted: userData.onboardingCompleted || false, 
+        moodLogs: userData.moodLogs || [] 
+      };
+
+      setUser(newUser); 
+      setHabits([]); 
+      setEditName(newUser.name); 
+      setEditUsername(newUser.username);
+      setView('SUBSCRIPTION_SETUP'); 
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Error de conexión con el servidor');
+    }
   };
 
   const handleLogout = () => { storageService.logout(); setUser(null); setHabits([]); setView('LANDING'); };

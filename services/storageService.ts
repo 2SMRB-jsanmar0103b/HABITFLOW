@@ -103,6 +103,14 @@ export const storageService = {
   },
 
   getCurrentSessionUser: (): User | null => {
+    const saved = localStorage.getItem('usuario');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        localStorage.removeItem('usuario');
+      }
+    }
     const email = localStorage.getItem(STORAGE_KEYS.CURRENT_USER_EMAIL);
     if (!email) return null;
     return storageService.findUser(email) || null;
@@ -110,5 +118,6 @@ export const storageService = {
 
   logout: () => {
     localStorage.removeItem(STORAGE_KEYS.CURRENT_USER_EMAIL);
+    localStorage.removeItem('usuario');
   }
 };
