@@ -82,9 +82,8 @@ export const storageService = {
       users.push(user);
     }
     localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
-    if (!user.isGuest) {
-      localStorage.setItem(STORAGE_KEYS.CURRENT_USER_EMAIL, user.email);
-    }
+    // Always remember the last user, even if guest, for session continuity on refresh
+    localStorage.setItem(STORAGE_KEYS.CURRENT_USER_EMAIL, user.email);
   },
 
   loadHabits: (email: string): Habit[] => {
