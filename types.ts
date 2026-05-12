@@ -1,9 +1,27 @@
-export type ViewState = 'LANDING' | 'LOGIN' | 'REGISTER' | 'SUBSCRIPTION_SETUP' | 'ONBOARDING' | 'HOME' | 'HISTORY' | 'STATS' | 'PROFILE' | 'RANKING' | 'ADVISOR' | 'DISCOVER' | 'MOOD';
+export type ViewState = 'LANDING' | 'LOGIN' | 'REGISTER' | 'SUBSCRIPTION_SETUP' | 'ONBOARDING' | 'HOME' | 'HISTORY' | 'STATS' | 'PROFILE' | 'RANKING' | 'ADVISOR' | 'DISCOVER' | 'MOOD' | 'REWARDS';
 
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'extreme';
 export type FrequencyType = 'daily' | 'weekly';
 export type Language = 'es' | 'en';
-export type MoodType = 'Muy triste' | 'Triste' | 'Neutral' | 'Feliz' | 'Alegre' | 'Excelente';
+export type MoodType = 'vSad' | 'sad' | 'neutral' | 'happy' | 'joyful' | 'excellent';
+
+export interface Customization {
+  themeColor: string; // Tailwind class name or custom hex if handled
+  themeColorValue?: string;
+  iconSet: string;
+  cursor: string;
+}
+
+export interface Mission {
+  id: string;
+  title: string;
+  description: string;
+  rewardType: 'xp' | 'theme' | 'icon' | 'cursor';
+  rewardValue: any;
+  requiredPlan: 'free' | 'basic' | 'premium';
+  goal: number;
+  type: 'habit_count' | 'streak_record' | 'level_reach' | 'mood_logs' | 'completed_habits';
+}
 
 export interface MoodEntry {
   date: string; // ISO string
@@ -22,6 +40,7 @@ export interface Habit {
   xpReward: number;
   completedDates: string[]; // ISO date strings YYYY-MM-DD
   streak: number;
+  createdAt: string; // ISO date string YYYY-MM-DD
 }
 
 export interface User {
@@ -36,6 +55,7 @@ export interface User {
   darkMode: boolean;
   language: Language;
   profileImage?: string;
+  birthDate?: string;
   subscriptionPlan: 'free' | 'basic' | 'premium';
   isGuest?: boolean;
   onboardingCompleted?: boolean;
@@ -44,6 +64,16 @@ export interface User {
   maxStreakRecord?: number;
   hardestHabitCompleted?: Difficulty;
   moodLogs?: MoodEntry[];
+  completedHabits?: {
+    id: string;
+    title: string;
+    createdAt: string;
+    completedAt: string;
+    daysToComplete: number;
+    xpEarned: number;
+  }[];
+  customization?: Customization;
+  claimedMissions?: string[];
 }
 
 export const HABIT_ICONS = [
