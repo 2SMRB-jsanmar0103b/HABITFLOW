@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 const getAI = () => {
-  const key = process.env.API_KEY || process.env.GEMINI_API_KEY;
+  const key = import.meta.env.VITE_GEMINI_API_KEY;
   if (!key) {
     console.warn("GEMINI_API_KEY is missing. AI features will be disabled.");
     return null;
